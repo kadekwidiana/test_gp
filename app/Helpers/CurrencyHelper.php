@@ -25,7 +25,10 @@ if (! function_exists('parseRupiah')) {
      */
     function parseRupiah(string $amount): int
     {
-        $cleaned = str_replace(['Rp', ' '], '', $amount);
+        // $cleaned = str_replace(['Rp', ' '], '', $amount);
+
+        // Hapus 'Rp', spasi, dan titik
+        $cleaned = str_replace(['Rp', ' ', '.'], '', $amount);
 
         return (int) $cleaned;
     }

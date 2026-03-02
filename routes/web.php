@@ -9,5 +9,6 @@ Route::get('/', function () {
 });
 
 Route::get('transactions/datatable', [TransactionController::class, 'datatable'])->name('transactions.datatable');
-Route::resource('transactions', TransactionController::class)->only(['index', 'store', 'destroy']);
+// Route::resource('transactions', TransactionController::class)->only(['index', 'store', 'destroy']);
+Route::resource('transactions', TransactionController::class);
 Route::get('categories/{type}', [CategoryController::class, 'getByType'])->name('categories.byType');

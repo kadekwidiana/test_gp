@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTransactionRequest;
+use App\Http\Requests\UpdateTransactionRequest;
 use App\Services\CategoryService;
 use App\Services\TransactionService;
 use Illuminate\Http\JsonResponse;
@@ -29,9 +30,9 @@ class TransactionController extends Controller
      */
     public function index(): View
     {
-        $totalIncome = 0;
-        $totalExpense = 0;
-        $balance = 0;
+        $totalIncome = $this->transactionService->totalIncome();
+        $totalExpense = $this->transactionService->totalExpense();
+        $balance = $this->transactionService->balance();
 
         return $this->responseView('transactions.index', compact(
             'totalIncome',
@@ -71,5 +72,15 @@ class TransactionController extends Controller
     public function destroy(int $id): JsonResponse
     {
         return $this->transactionService->handleDeleteTransaction($id)->json();
+    }
+
+    public function show($id)
+    {
+        return $this->transactionService->getTransactionById($id);
+    }
+
+    public function update(UpdateTransactionRequest $request, int $id): JsonResponse
+    {
+        return $this->transactionService->handleUpdateTransaction($request, $id)->json();
     }
 }
